@@ -1,29 +1,24 @@
-import 'package:flutter/material.dart';
-import 'package:ureport_app/app.dart';
-import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 //import 'package:ureport_app/registration/User.dart';
 //import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-
+import 'package:provider/provider.dart';
+import 'package:ureport_app/app.dart';
 import 'package:ureport_app/theme/theme.dart';
 import 'package:ureport_app/theme/themeNotifier.dart';
-import 'package:provider/provider.dart';
 
 void main() => runApp(
-  MultiProvider(
-    providers: [
-      ChangeNotifierProvider<ThemeNotifier>(
-        create: (_) => ThemeNotifier(mainTheme, 'assets/LargeUreportIcon.png'),
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ThemeNotifier>(
+            create: (_) =>
+                ThemeNotifier(mainTheme, 'lib/media/LargeUreportIcon.png'),
+          ),
+        ],
+        child: UReportApp(),
       ),
-    ],
-      child: UReportApp(),
-  ),
-);
-
-
-
+    );
 
 final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
@@ -96,7 +91,6 @@ class _UReportAppState extends State<UReportApp> {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     return MaterialApp(
       theme: themeNotifier.getTheme(),
-
       home: TabScreen(),
     );
   }
